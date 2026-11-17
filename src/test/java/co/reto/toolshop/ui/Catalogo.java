@@ -12,8 +12,12 @@ public final class Catalogo {
     public static final Target PROMOCION = prueba("precio promocional", "product-discount-price");
     public static final Target CO2_ACTIVO = css("calificación CO2 activa", "[data-test='co2-rating-badge'] .active");
     public static final Target ORDEN = prueba("orden del catálogo", "sort");
-    public static final Target SUBCATEGORIAS = css("subcategorías", "input[name='category_id'][data-test^='category-']");
+    public static final Target SUBCATEGORIAS = css("subcategorías", "ul input[name='category_id'][data-test^='category-']");
     public static final Target SIGUIENTE = prueba("página siguiente", "pagination-next");
+    public static final Target SIGUIENTE_HABILITADA = css("página siguiente habilitada", "li:not(.disabled) > [data-test='pagination-next']");
+    public static final Target ORDEN_COMPLETADO = prueba("ordenamiento terminado", "sorting_completed");
+    public static final Target FILTRO_COMPLETADO = prueba("filtrado terminado", "filter_completed");
+    public static final Target ETIQUETA_PADRE = Target.the("etiqueta de categoría").locatedBy("..");
     public static final Target PAGINA_ACTUAL = css("página actual", "app-pagination li.active button");
     public static final Target SIN_RESULTADOS = prueba("sin resultados", "no-results");
     public static final Target NOMBRE_DETALLE = css("nombre del producto", "h1[data-test='product-name']");
