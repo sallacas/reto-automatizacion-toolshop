@@ -115,4 +115,6 @@ El commit inicial se creó en `preparacion/base`; `main` apunta a esa base. Todo
 
 No se incluye GitHub Actions. La [guía de sustentación](docs/sustentacion.md) explica el diseño y la demostración. Los reportes, credenciales y archivos temporales están excluidos por `.gitignore`.
 
+La [validación de entrega](docs/validacion.md) registra la ejecución completa aprobada: seis pruebas unitarias y cinco escenarios web, sin fallos ni omisiones.
+
 Referencias: [documentación oficial de Serenity](https://serenity-bdd.github.io/docs/guide/maven) y [código fuente de Toolshop](https://github.com/testsmith-io/practice-software-testing).
