@@ -23,6 +23,6 @@ public final class Acceso {
     public static final Target INGRESAR = prueba("iniciar sesión", "login-submit");
     public static final Target ERROR_LOGIN = prueba("error de autenticación", "login-error");
     public static final Target ERROR_REGISTRO = prueba("error de registro", "register-error");
-    public static final Target MENU_CUENTA = prueba("menú de la cuenta", "nav-menu");
+    public static final Target FACTURAS_CUENTA = prueba("facturas de la cuenta autenticada", "nav-invoices");
     public static final Target BUSQUEDA_POSTAL = prueba("búsqueda de dirección pendiente", "postcode-lookup-loading");
 }

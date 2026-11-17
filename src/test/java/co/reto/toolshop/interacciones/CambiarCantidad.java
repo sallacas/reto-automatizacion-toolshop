@@ -21,7 +21,7 @@ public class CambiarCantidad implements Interaction {
                 .filter(e -> Esperas.dentro(e, Carrito.NOMBRE).getText().trim().equals(primero.nombre()))
                 .findFirst().orElseThrow(() -> new IllegalStateException("No se encontró el producto: " + primero.nombre()));
         String totalAnterior = Esperas.visible(actor, Carrito.TOTAL).getText();
-        Esperas.dentro(fila, Carrito.CANTIDAD).sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE,
+        Esperas.dentro(fila, Carrito.CANTIDAD).sendKeys(Keys.chord(Keys.CONTROL, "a"),
                 Integer.toString(cantidad), Keys.TAB);
         productos.set(0, primero.conCantidad(cantidad));
         actor.remember(Memoria.PRODUCTOS, List.copyOf(productos));

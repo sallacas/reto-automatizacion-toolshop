@@ -7,7 +7,6 @@ import co.reto.toolshop.utilidades.Esperas;
 import java.util.*;
 import net.serenitybdd.annotations.Step;
 import net.serenitybdd.screenplay.*;
-import org.openqa.selenium.By;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 public class RevisarCategoria implements Task {
@@ -16,7 +15,7 @@ public class RevisarCategoria implements Task {
     public <T extends Actor> void performAs(T actor) {
         Esperas.visible(actor, Catalogo.SUBCATEGORIAS);
         var candidatas = Esperas.todos(actor, Catalogo.SUBCATEGORIAS).stream()
-                .map(e -> Map.entry(e.getAttribute("data-test"), e.findElement(By.xpath("..")).getText().trim())).toList();
+                .map(e -> Map.entry(e.getAttribute("data-test"), e.findElement(Catalogo.ETIQUETA_PADRE).getText().trim())).toList();
         String seleccionada = null;
         for (var candidata : candidatas) {
             var objetivo = Elementos.prueba("subcategoría " + candidata.getValue(), candidata.getKey());

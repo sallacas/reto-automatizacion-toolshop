@@ -16,6 +16,6 @@ public class Escribir implements Interaction {
     @Step("{0} completa #campo")
     public <T extends Actor> void performAs(T actor) {
         WebElement elemento = Esperas.clicable(actor, campo);
-        elemento.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE, contenido, Keys.TAB);
+        elemento.sendKeys(Keys.chord(Keys.CONTROL, "a"), contenido, Keys.TAB);
     }
 }

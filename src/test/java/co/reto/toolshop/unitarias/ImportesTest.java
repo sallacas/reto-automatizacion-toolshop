@@ -22,6 +22,7 @@ public class ImportesTest {
     @Test public void rechazaValoresAusentesOAmbiguos() {
         assertThatThrownBy(() -> Importes.desdeTexto("—")).isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> Importes.desdeTexto("$1.234")).isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> Importes.desdeTexto("$1,23")).isInstanceOf(IllegalArgumentException.class);
     }
     @Test public void comparaPreciosConDistintasEscalasYPermiteEmpates() {
         assertThat(List.of(new BigDecimal("9.17"), new BigDecimal("12.0"), new BigDecimal("12.00")))

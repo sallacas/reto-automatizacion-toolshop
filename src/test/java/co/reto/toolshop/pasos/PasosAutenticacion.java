@@ -15,7 +15,8 @@ public class PasosAutenticacion {
     @Dado("que un cliente nuevo se registra e inicia sesión")
     public void registrarEIngresar() {
         var actor = theActorInTheSpotlight();
-        actor.attemptsTo(RegistrarUsuario.nuevo(), IniciarSesion.con(actor.recall(Memoria.USUARIO)));
+        actor.attemptsTo(RegistrarUsuario.nuevo());
+        actor.attemptsTo(IniciarSesion.con(actor.recall(Memoria.USUARIO)));
         Esperas.hasta(actor, "Debe ingresar a su cuenta", d -> d.getCurrentUrl().contains("/account"));
         actor.should(seeThat("la sesión del nuevo usuario", EstadoSesion.autenticada(), is(true)));
     }

@@ -7,6 +7,7 @@ import co.reto.toolshop.tareas.AgregarProductos;
 import io.cucumber.java.es.*;
 import java.math.BigDecimal;
 import java.util.List;
+import net.serenitybdd.core.Serenity;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,6 +31,10 @@ public class PasosCarrito {
             assertThat(observado.subtotal()).as("Subtotal de %s", esperado.nombre()).isEqualByComparingTo(esperado.subtotal());
         }
         BigDecimal totalEsperado = actor.recall(Memoria.TOTAL_ESPERADO);
+        Serenity.recordReportData().withTitle("Precios capturados y cálculo del carrito")
+                .andContents(esperados.stream().map(e -> e.nombre() + ": " + e.precioUnitario() + " USD x "
+                        + e.cantidad() + " = " + e.subtotal() + " USD").collect(java.util.stream.Collectors.joining("\n"))
+                        + "\nTotal esperado: " + totalEsperado + " USD\nTotal observado: " + actor.asksFor(CarritoActual.total()) + " USD");
         assertThat(actor.asksFor(CarritoActual.total())).as("Total calculado desde los precios capturados")
                 .isEqualByComparingTo(totalEsperado);
     }

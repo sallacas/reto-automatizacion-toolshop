@@ -11,7 +11,7 @@
     <serenity.version>4.2.34</serenity.version>
     <cucumber.version>7.22.2</cucumber.version>
     <serenity.outputDirectory>${project.build.directory}/serenity-reports</serenity.outputDirectory>
-    <cucumber.filter.tags>not @pendiente</cucumber.filter.tags>
+    <cucumber.filter.tags/>
     <headless.mode>false</headless.mode>
     <webdriver.base.url>https://practicesoftwaretesting.com</webdriver.base.url>
   </properties>

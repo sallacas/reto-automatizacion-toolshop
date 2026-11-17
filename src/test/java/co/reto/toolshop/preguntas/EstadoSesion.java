@@ -10,11 +10,11 @@ public final class EstadoSesion {
         return actor -> Esperas.visible(actor, Acceso.ERROR_LOGIN).getText().trim();
     }
     public static Question<Boolean> autenticada() {
-        return actor -> Esperas.presente(actor, Acceso.MENU_CUENTA)
+        return actor -> Esperas.visible(actor, Acceso.FACTURAS_CUENTA).isDisplayed()
                 && Esperas.navegador(actor).getCurrentUrl().contains("/account");
     }
     public static Question<Boolean> permaneceEnLogin() {
         return actor -> Esperas.navegador(actor).getCurrentUrl().contains("/auth/login")
-                && Esperas.presente(actor, Acceso.INGRESAR) && !Esperas.presente(actor, Acceso.MENU_CUENTA);
+                && Esperas.presente(actor, Acceso.INGRESAR) && !Esperas.presente(actor, Acceso.FACTURAS_CUENTA);
     }
 }

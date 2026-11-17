@@ -13,5 +13,4 @@ public final class Pago {
     public static final Target FINALIZAR = prueba("validar o confirmar pago", "finish");
     public static final Target PAGO_VALIDADO = prueba("pago validado", "payment-success-message");
     public static final Target CONFIRMACION = css("confirmación de la compra", "#order-confirmation");
-    public static final Target NUMERO_FACTURA_CONFIRMADA = css("número de factura confirmado", "#order-confirmation #invoice-number");
 }

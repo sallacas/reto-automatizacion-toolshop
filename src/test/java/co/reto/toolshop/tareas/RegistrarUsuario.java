@@ -7,7 +7,6 @@ import co.reto.toolshop.ui.Acceso;
 import co.reto.toolshop.utilidades.Esperas;
 import net.serenitybdd.annotations.Step;
 import net.serenitybdd.screenplay.*;
-import org.openqa.selenium.support.ui.Select;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 public class RegistrarUsuario implements Task {
@@ -19,7 +18,7 @@ public class RegistrarUsuario implements Task {
         actor.attemptsTo(AbrirTienda.en("/auth/register"),
                 Escribir.en(Acceso.NOMBRE, usuario.nombre()), Escribir.en(Acceso.APELLIDO, usuario.apellido()),
                 Escribir.en(Acceso.NACIMIENTO, usuario.nacimiento()));
-        new Select(Esperas.clicable(actor, Acceso.PAIS)).selectByValue(usuario.pais());
+        actor.attemptsTo(SeleccionarOpcion.en(Acceso.PAIS, usuario.pais()));
         actor.attemptsTo(Escribir.en(Acceso.CODIGO_POSTAL, usuario.codigoPostal()), Escribir.en(Acceso.NUMERO, usuario.numero()),
                 Escribir.en(Acceso.TELEFONO, usuario.telefono()), Escribir.en(Acceso.CORREO, usuario.correo()),
                 Escribir.en(Acceso.CLAVE, usuario.clave()));
