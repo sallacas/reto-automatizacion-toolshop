@@ -1,0 +1,23 @@
+package com.co.toolshop.questions;
+
+import com.co.toolshop.models.*;
+import com.co.toolshop.userinterfaces.*;
+import com.co.toolshop.utils.*;
+import java.math.BigDecimal;
+import java.util.List;
+import net.serenitybdd.core.steps.Instrumented;
+import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.Question;
+import net.serenitybdd.screenplay.targets.Target;
+
+public class ValidateText implements Question<String> {
+    private final Target element;
+    public ValidateText(Target element) { this.element = element; }
+    public static ValidateText of(Target element) {
+        return Instrumented.instanceOf(ValidateText.class).withProperties(element);
+    }
+    @Override
+    public String answeredBy(Actor actor) {
+        return Waits.visible(actor, element).getText().trim();
+    }
+}
