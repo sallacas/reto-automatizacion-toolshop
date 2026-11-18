@@ -2,6 +2,20 @@
 
 Pruebas web de [Practice Software Testing – Toolshop](https://practicesoftwaretesting.com) con Java 21, Maven, Selenium, Serenity BDD, Screenplay y Cucumber. La suite comprueba el cálculo del carrito, la compra y factura, el ordenamiento del catálogo, el filtro por categoría y el rechazo de credenciales inválidas.
 
+## Material para entender y explicar el reto
+
+| Material | Para qué sirve |
+| --- | --- |
+| [Guía HTML para principiantes](docs/guia-principiantes.html) | Explica automatización y Screenplay desde cero, recorre el código, permite practicar el cálculo del carrito y contiene una autoevaluación con respuestas explicadas. |
+| [Presentación PowerPoint](docs/presentacion-toolshop.pptx) | Quince diapositivas editables con notas del expositor para una explicación de unos diez minutos. |
+| [Guion de las diapositivas](docs/presentacion-toolshop.md) | Fuente de texto editable con el contenido, las notas y las referencias de cada diapositiva. |
+| [Guía de sustentación](docs/sustentacion.md) | Orden de exposición, archivos que conviene mostrar, preguntas del evaluador y demostración sugerida. |
+| [Validación registrada](docs/validacion.md) | Ambiente, fecha y resultados de las ejecuciones verificadas del proyecto. |
+
+Para leer el HTML, descarga o clona el repositorio y abre `docs/guia-principiantes.html` en Chrome o Edge. El contenido, la calculadora y la autoevaluación funcionan sin servidor ni conexión; los enlaces a GitHub requieren Internet. GitHub puede mostrar el código HTML en lugar de su vista de lectura. El botón de impresión permite usar la opción del navegador para guardar una copia en PDF.
+
+Los importes del material de estudio son ejemplos de una ejecución anterior. Los escenarios Java capturan los precios de la tienda en cada ejecución y calculan sus propios valores esperados.
+
 ## Requisitos previos
 
 - JDK 21 y `JAVA_HOME` configurado.
@@ -90,6 +104,9 @@ src/test/resources/
 docs/
   sustentacion.md   Guía de decisiones y demostración
   validacion.md     Resultados de ejecución
+  guia-principiantes.html    Documento autónomo con prácticas interactivas
+  presentacion-toolshop.pptx Presentación editable con notas del expositor
+  presentacion-toolshop.md   Contenido y notas de las diapositivas
 ```
 
 La organización sigue las convenciones de [prueba-tecnica-web](https://github.com/sallacas/prueba-tecnica-web), manteniendo las Tasks y sus fábricas en español. Los pasos delegan en Tasks/Interactions y consultan clases `Question<T>` para realizar las aserciones. La habilidad `BrowseTheWeb` pertenece al actor.
@@ -131,7 +148,7 @@ Si el sitio público está indisponible, consultar las instrucciones Docker del 
 
 ## Versionamiento y entrega
 
-El commit inicial se creó en `preparacion/base`. La implementación original se desarrolló en `funcionalidad/reto-automatizacion` y se integró mediante PR. El ajuste de convenciones se desarrolla en `refactorizacion/convenciones-screenplay`. Los commits, ramas y descripciones se mantienen en español; cada cambio se publica al terminar las verificaciones y se integra mediante commit de merge para conservar el historial.
+El commit inicial se creó en `preparacion/base`. La implementación original se desarrolló en `funcionalidad/reto-automatizacion` y el ajuste de convenciones en `refactorizacion/convenciones-screenplay`; ambos se integraron mediante PR. Los materiales de aprendizaje se preparan en `documentacion/guia-y-presentacion`. Los commits, ramas y descripciones se mantienen en español; cada cambio se publica al terminar las verificaciones y se integra mediante commit de merge para conservar el historial.
 
 No se incluye GitHub Actions. La [guía de sustentación](docs/sustentacion.md) explica el diseño y la demostración. Los reportes, credenciales y archivos temporales están excluidos por `.gitignore`.
 

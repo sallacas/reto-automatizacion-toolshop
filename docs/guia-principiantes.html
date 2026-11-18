@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Guía para aprender y explicar el reto Toolshop desde cero: automatización, Screenplay, cálculos y sustentación.">
+<title>Entender y explicar el reto Toolshop</title>
+<style>
+:root{--ink:#173038;--muted:#526970;--teal:#007e79;--yellow:#ffca46;--paper:#fff;--wash:#f4f7f6;--line:#d6e2de;--code:#112b32}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}body{margin:0;color:var(--ink);background:var(--wash);font:17px/1.7 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--teal);text-underline-offset:3px}a:hover{text-decoration-thickness:2px}a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #b86700;outline-offset:4px}button,input{font:inherit}button{cursor:pointer}header{background:var(--code);color:white;padding:64px max(28px,calc((100vw - 1260px)/2)) 58px}.eyebrow{font-size:13px;font-weight:750;letter-spacing:.15em;text-transform:uppercase;color:#91d9cd;margin:0 0 16px}h1{font-size:clamp(36px,4.5vw,62px);line-height:1.08;letter-spacing:-.035em;max-width:940px;margin:0 0 24px}header .lead{color:#d0e4df;max-width:820px;font-size:21px;line-height:1.55;margin:0}.meta{font-size:14px;color:#c7d9d6;margin-top:24px}.layout{display:grid;grid-template-columns:255px minmax(0,1fr);gap:54px;max-width:1260px;margin:0 auto;padding:42px 28px 70px}aside{align-self:start;position:sticky;top:26px;font-size:14px}aside h2{font-size:15px;margin:0 0 12px}aside ol{list-style:none;padding:0;margin:0;border-left:1px solid var(--line)}aside a{display:block;padding:7px 14px;color:var(--muted);text-decoration:none}aside a:hover{background:#e6efeb;color:var(--ink)}.print{background:white;border:1px solid var(--line);padding:9px 15px;margin-top:20px;border-radius:4px;color:var(--ink)}main{min-width:0;background:var(--paper);padding:12px 40px 35px;border:1px solid var(--line);border-radius:6px}section{padding:35px 0 30px;border-bottom:1px solid var(--line)}section:last-child{border:0}h2{font-size:30px;line-height:1.23;letter-spacing:-.02em;margin:0 0 22px}h2 .num{color:var(--teal);font-size:16px;display:block;letter-spacing:.09em;margin-bottom:7px}h3{font-size:21px;margin:27px 0 10px;line-height:1.35}p{margin:0 0 17px}li{margin-bottom:9px}ul,ol{padding-left:24px}.small{font-size:14px;color:var(--muted)}.key{border-left:4px solid var(--yellow);padding:3px 0 3px 18px;margin:24px 0;color:var(--ink)}.key p{margin:0}.table-wrap{overflow:auto;margin:20px 0}table{border-collapse:collapse;width:100%;font-size:15px}th,td{text-align:left;padding:12px 10px;vertical-align:top;border-bottom:1px solid var(--line)}thead{background:#eaf4f0}th{font-weight:750}tbody tr:last-child td{border-bottom:0}td.num,th.num{text-align:right;white-space:nowrap}code{font-family:Consolas,"Cascadia Code",monospace;font-size:.88em;background:#eaf2ef;padding:2px 5px;border-radius:3px;overflow-wrap:anywhere}pre{background:var(--code);color:#e1f3ed;padding:22px;border-radius:5px;line-height:1.55;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere;tab-size:2}pre code{background:none;padding:0;color:inherit;font-size:inherit}.path{font-family:Consolas,monospace;font-size:13px;overflow-wrap:anywhere}.steps{list-style:none;counter-reset:flow;padding:0}.steps li{counter-increment:flow;position:relative;padding:0 0 22px 42px;border-left:1px solid var(--line);margin-left:14px}.steps li:before{content:counter(flow);position:absolute;left:-14px;top:0;border-radius:50%;width:28px;height:28px;background:var(--teal);color:white;text-align:center;font-size:14px;line-height:28px;font-weight:700}.steps li:last-child{padding-bottom:0;border-left:0}.steps strong{display:block}.calculator{margin:24px 0;border-top:3px solid var(--teal);background:#f6faf8;padding:22px}.calculator h3{margin-top:0}.calculator input{width:74px;border:1px solid #8ba7a0;border-radius:3px;padding:6px;background:#fff;text-align:right}.calculator .table-wrap{margin:12px 0}.button{background:var(--teal);border:0;border-radius:4px;color:white;padding:10px 16px}.button.secondary{background:white;color:var(--ink);border:1px solid #90a9a2;margin-left:8px}.total{font-size:28px;font-weight:750;margin:15px 0 6px}.calc-status{font-size:14px;min-height:24px;color:var(--muted)}details{border-top:1px solid var(--line);padding:14px 0}summary{font-weight:700;cursor:pointer}details p{margin:12px 0 0}fieldset{border:0;border-top:1px solid var(--line);margin:0;padding:22px 0}legend{font-weight:700;padding:0 0 8px}fieldset label{display:block;font-size:16px;padding:4px 0}input[type=radio]{margin-right:9px;accent-color:var(--teal)}.answer{margin-top:12px;padding:10px 13px;background:#edf6f1;font-size:15px}.quiz-result{margin-top:20px;font-weight:700}.practice{font-weight:700;color:var(--teal)}.footer{font-size:13px;color:var(--muted);margin-top:24px}.source-list{font-size:14px}.source-list li{margin-bottom:12px}.tag{font-family:Consolas,monospace;color:var(--teal);font-size:14px}.nojs{color:#854c00}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:1050px){.layout{grid-template-columns:205px minmax(0,1fr);gap:25px}main{padding:8px 25px 25px}header{padding:45px 28px}}
+@media(max-width:760px){body{font-size:16px}.layout{display:block;padding:22px 16px}aside{position:static;margin-bottom:24px}aside ol{display:grid;grid-template-columns:1fr 1fr}aside a{padding:7px 10px}main{padding:4px 20px 22px}header{padding:40px 22px}header .lead{font-size:18px}h2{font-size:27px}.calculator{padding:15px}.calculator th,.calculator td{padding:9px 6px;font-size:13px}.calculator input{width:60px}.button.secondary{margin:8px 0 0}pre{padding:16px;font-size:12px}section{padding:28px 0}.total{font-size:24px}}
+@media print{body{background:white;color:#111;font-size:11pt}header{background:white;color:#111;padding:0 0 20px}header .lead,.meta,.eyebrow{color:#333}h1{font-size:30pt}aside,.print,.button{display:none}.layout{display:block;padding:0;max-width:none}main{padding:0;border:0}section{padding:20px 0;break-inside:auto}h2,h3,summary{break-after:avoid}h2{font-size:20pt}h3{font-size:14pt}pre{color:#111;background:#f0f3f2;border:1px solid #bbb;font-size:9pt;break-inside:avoid}table{font-size:9pt}.calculator{break-inside:avoid}details>p{display:block}a{color:#111}fieldset{break-inside:avoid}.answer{display:block!important}.table-wrap{overflow:visible}.quiz-result{display:none}@page{size:A4;margin:18mm}}
+</style>
+</head>
+<body>
+<header>
+<p class="eyebrow">Guía de aprendizaje y sustentación</p>
+<h1>Entender y explicar<br>el reto Toolshop</h1>
+<p class="lead">Una compra de herramientas sirve para aprender qué comprueba una prueba automática, cómo se organiza el código y cómo contar el ejercicio con tus propias palabras.</p>
+<p class="meta">Para personas que empiezan en automatización · Proyecto Java 21 y Screenplay · Convenciones actuales del repositorio</p>
+</header>
+<div class="layout">
+<aside aria-label="Índice de la guía">
+<h2>Tu recorrido</h2>
+<ol>
+<li><a href="#idea">01 La idea del reto</a></li><li><a href="#automatizar">02 Qué es automatizar</a></li>
+<li><a href="#herramientas">03 Las herramientas</a></li><li><a href="#screenplay">04 El patrón Screenplay</a></li>
+<li><a href="#recorrido">05 Del texto al navegador</a></li><li><a href="#codigo">06 Cómo leer el código</a></li>
+<li><a href="#calculo">07 Los cálculos</a></li><li><a href="#escenarios">08 Los cinco escenarios</a></li>
+<li><a href="#datos">09 Datos y esperas</a></li><li><a href="#ejecutar">10 Ejecutar y diagnosticar</a></li>
+<li><a href="#aprender">11 Ruta de aprendizaje</a></li><li><a href="#explicar">12 Guion para explicar</a></li>
+<li><a href="#preguntas">13 Preguntas frecuentes</a></li><li><a href="#evaluacion">14 Autoevaluación</a></li>
+<li><a href="#fuentes">15 Código y recursos</a></li>
+</ol>
+<button class="print" type="button" id="print-guide">Imprimir o guardar en PDF</button>
+</aside>
+<main id="contenido">
+<section id="idea">
+<h2><span class="num">01</span>La idea del reto</h2>
+<p>Imagina que compras tres herramientas. Anotas el precio de cada una, eliges cuántas unidades quieres y sumas los subtotales. Después cambias una cantidad, pagas en la tienda de demostración y revisas la factura de tu cuenta.</p>
+<p>El reto comprueba que esas cuentas sean coherentes. También revisa el orden de los productos, el filtro por categoría y el rechazo de un ingreso con credenciales inválidas.</p>
+<div class="key"><p><strong>La pregunta principal:</strong> ¿el carrito y la factura muestran lo que corresponde a los productos y cantidades elegidos?</p></div>
+<p>Toolshop es una aplicación de práctica. El ejercicio usa usuarios y datos bancarios ficticios. La transferencia bancaria pertenece al flujo simulado de la demo.</p>
+<p class="practice">Primera práctica: explica la compra sin mencionar Java ni Selenium. Si puedes contarla como cliente, ya entiendes el objetivo funcional.</p>
+</section>
+<section id="automatizar">
+<h2><span class="num">02</span>Qué significa automatizar una prueba</h2>
+<p>Una prueba automática es un programa que prepara una situación, realiza acciones y compara un resultado observado con uno esperado. Esa comparación se llama <strong>aserción</strong>.</p>
+<div class="table-wrap"><table><thead><tr><th>Parte</th><th>En esta compra</th></tr></thead><tbody>
+<tr><td>Preparación</td><td>Registrar un usuario nuevo e iniciar sesión.</td></tr><tr><td>Acción</td><td>Agregar herramientas y modificar una cantidad.</td></tr>
+<tr><td>Resultado esperado</td><td>El total que calcula el código a partir de los precios capturados.</td></tr><tr><td>Resultado observado</td><td>El total que muestra la página.</td></tr>
+<tr><td>Aserción</td><td>Comparar ambos importes y fallar si son diferentes.</td></tr></tbody></table></div>
+<p>Que el navegador llegue a la factura demuestra que pudo recorrer el flujo. Para demostrar que la información es correcta, las aserciones comparan número, importe y dirección.</p>
+<p><strong>Prueba unitaria:</strong> verifica una parte pequeña del código, como una suma, sin abrir Chrome. <strong>Prueba web:</strong> usa el navegador y comprueba el comportamiento de la aplicación.</p>
+</section>
+<section id="herramientas">
+<h2><span class="num">03</span>Qué aporta cada herramienta</h2>
+<div class="table-wrap"><table><thead><tr><th>Herramienta</th><th>Explicación sencilla</th></tr></thead><tbody>
+<tr><td>Java 21</td><td>El lenguaje en el que escribimos instrucciones, datos y cálculos.</td></tr>
+<tr><td>Selenium</td><td>Controla el navegador: localiza campos, escribe, pulsa botones y lee información.</td></tr>
+<tr><td>Serenity BDD</td><td>Integra la ejecución y el reporte, y proporciona las piezas de Screenplay.</td></tr>
+<tr><td>Screenplay</td><td>El patrón que organiza el código alrededor de un actor y los objetivos que realiza.</td></tr>
+<tr><td>Cucumber y Gherkin</td><td>Gherkin describe ejemplos con Dado, Cuando y Entonces. Cucumber los conecta con métodos Java.</td></tr>
+<tr><td>JUnit y AssertJ</td><td>JUnit participa en la ejecución de pruebas. AssertJ permite expresar comparaciones, como la igualdad de importes.</td></tr>
+<tr><td>Maven</td><td>Descarga dependencias y ejecuta las etapas de compilación, pruebas y generación del reporte.</td></tr>
+<tr><td>Git y GitHub</td><td>Git guarda el historial de cambios. GitHub aloja el repositorio y permite revisar e integrar cambios con un Pull Request.</td></tr>
+</tbody></table></div>
+<p>BDD significa desarrollo guiado por comportamiento. Aquí se refleja en ejemplos legibles sobre lo que debería hacer la tienda. Java permite trabajar con objetos; Screenplay aporta un patrón para repartir sus responsabilidades.</p>
+</section>
+<section id="screenplay">
+<h2><span class="num">04</span>El patrón Screenplay</h2>
+<p>Piensa en una persona que compra con una lista y una libreta. Tiene la capacidad de usar el navegador, realiza objetivos y consulta información para decidir si el resultado es correcto.</p>
+<div class="table-wrap"><table><thead><tr><th>Pieza</th><th>Responsabilidad</th><th>Ejemplo real</th></tr></thead><tbody>
+<tr><td>Actor</td><td>Representa al cliente de la prueba.</td><td><code>Cliente de Toolshop</code></td></tr>
+<tr><td>Ability</td><td>Le da una capacidad al actor.</td><td><code>BrowseTheWeb</code>, usar el navegador.</td></tr>
+<tr><td>Task</td><td>Expresa un objetivo del cliente y coordina acciones.</td><td><code>ModificarCantidad.delPrimerProductoA(4)</code></td></tr>
+<tr><td>Interaction</td><td>Realiza una operación concreta de interfaz.</td><td><code>ChangeQuantity.ofProduct(nombre).to(4)</code></td></tr>
+<tr><td>Question</td><td>Lee un dato o estado de la aplicación.</td><td><code>CartTotal.value()</code></td></tr>
+<tr><td>Target</td><td>Identifica un elemento de la página.</td><td><code>CartPage.LBL_TOTAL</code></td></tr>
+<tr><td>Memoria del actor</td><td>Conserva datos dentro del escenario.</td><td><code>remember</code> y <code>recall</code>.</td></tr>
+<tr><td>Aserción</td><td>Compara lo observado con lo esperado.</td><td><code>isEqualByComparingTo(totalEsperado)</code></td></tr>
+</tbody></table></div>
+<p>La <strong>Task de modificar cantidad</strong> prepara la nueva información y recalcula el total esperado. La <strong>Interaction</strong> escribe en el campo. La <strong>Question</strong> lee el total de la web. Finalmente, la aserción hace la comparación. Así cada parte tiene un motivo claro para existir.</p>
+<p>Las Tasks y sus fábricas se nombran en español. Las carpetas siguen las convenciones de la referencia: <code>tasks</code>, <code>interactions</code>, <code>questions</code>, <code>userinterfaces</code>, <code>models</code> y <code>utils</code>.</p>
+</section>
+<section id="recorrido">
+<h2><span class="num">05</span>Del escenario al navegador y de vuelta</h2>
+<p>Este paso existe en <code>compra.feature</code>:</p>
+<pre><code>Cuando cambia la cantidad del primer producto a 4
+Entonces el carrito coincide con los precios y cantidades capturados</code></pre>
+<ol class="steps">
+<li><strong>Gherkin describe el ejemplo</strong>La frase explica una acción del cliente con un dato concreto: 4 unidades.</li>
+<li><strong>Cucumber encuentra el método Java</strong><code>CartStepDefinitions.cambiarCantidad(int cantidad)</code> recibe el número 4 gracias a <code>{int}</code>.</li>
+<li><strong>El paso delega en una Task</strong><code>actor.attemptsTo(ModificarCantidad.delPrimerProductoA(4))</code> solicita el objetivo.</li>
+<li><strong>La Task prepara los datos y usa una Interaction</strong>Crea una nueva versión del producto, escribe la cantidad mediante <code>ChangeQuantity</code> y guarda el nuevo total esperado.</li>
+<li><strong>Una Question lee la web</strong><code>actor.asksFor(CartTotal.value())</code> devuelve un <code>BigDecimal</code> con el total observado.</li>
+<li><strong>La aserción compara y Serenity reporta</strong>El escenario pasa si las comprobaciones coinciden. Si una comparación falla, el reporte señala el paso y la diferencia.</li>
+</ol>
+<p class="practice">Práctica: localiza esas piezas en el repositorio y explica qué dato recibe y qué dato entrega cada una.</p>
+</section>
+<section id="codigo">
+<h2><span class="num">06</span>Cómo leer las llamadas del código</h2>
+<p>Estos son fragmentos explicativos del proyecto. Se leen dentro de un escenario ya preparado con su actor y navegador.</p>
+<pre><code>actor.attemptsTo(RegistrarUsuario.con(UserGenerator.newUser()));
+actor.attemptsTo(IniciarSesion.enLaTiendaCon(
+    actor.recall(ActorMemory.USER)));
+actor.attemptsTo(AgregarProductos.alCarritoConCantidades(1, 2, 3));</code></pre>
+<p><code>RegistrarUsuario</code> es la clase de una Task. <code>con(...)</code> es un método de fábrica: construye la Task con los datos recibidos. <code>actor.attemptsTo(...)</code> ejecuta su comportamiento. Su método <code>performAs</code> contiene las acciones que realizará.</p>
+<p>El registro termina antes de recuperar el usuario con <code>recall</code>. Este orden permite que el login use exactamente la cuenta recién creada.</p>
+<pre><code>actor.remember(ActorMemory.EXPECTED_TOTAL, totalEsperado);
+BigDecimal guardado = actor.recall(ActorMemory.EXPECTED_TOTAL);
+BigDecimal observado = actor.asksFor(CartTotal.value());
+assertThat(observado).isEqualByComparingTo(guardado);</code></pre>
+<p><code>remember</code> guarda un dato con una clave. <code>recall</code> lo recupera. <code>asksFor</code> solicita una lectura a una Question. <code>assertThat</code> inicia la comprobación.</p>
+<h3>Dónde está cada cosa</h3>
+<pre><code>src/main/java/com/co/toolshop/
+  tasks/             Objetivos del cliente
+  interactions/      Operaciones concretas de interfaz
+  questions/         Lecturas del sistema
+  userinterfaces/    Pantallas y localizadores
+  models/            Datos inmutables con sufijo DTO
+  utils/             Memoria, cálculos y esperas
+    data/            Generador de usuarios UUID
+
+src/test/java/com/co/toolshop/
+  runners/           Ejecutor de Cucumber
+  stepdefinitions/   Conexión entre Gherkin y Java, y Hooks
+  unit/              Pruebas sin navegador
+
+src/test/resources/features/  Escenarios en español</code></pre>
+<p>Un DTO reúne datos relacionados. Por ejemplo, <code>ProductDTO</code> guarda identificador, nombre, precio unitario y cantidad. Sus records son inmutables: <code>withQuantity(4)</code> crea un nuevo objeto y conserva los demás datos.</p>
+<p>Los nombres de controles ayudan a leer el código: <code>TXT_EMAIL</code> es un campo de texto, <code>BTN_LOGIN</code> un botón, <code>LBL_TOTAL</code> un dato mostrado y <code>SELECT_PAYMENT_METHOD</code> una lista desplegable.</p>
+</section>
+<section id="calculo">
+<h2><span class="num">07</span>Cómo se comprueba el dinero</h2>
+<p>Para cada producto, el código multiplica el precio unitario capturado por su cantidad. Luego suma los subtotales. El resultado esperado se obtiene de esos datos, antes de compararlo con el total de la tienda.</p>
+<pre><code>subtotal = precioUnitario.multiply(BigDecimal.valueOf(cantidad));
+totalEsperado = sumaDeTodosLosSubtotales;</code></pre>
+<p>Java usa <code>BigDecimal</code> construido desde texto para manejar importes decimales. Se compara el valor numérico: <code>12.0</code> y <code>12.00</code> representan el mismo importe.</p>
+<div class="calculator" aria-labelledby="calc-title">
+<h3 id="calc-title">Un carrito para practicar</h3>
+<p class="small">Ejemplo basado en precios de una ejecución anterior. Esta calculadora es didáctica: no consulta Toolshop ni ejecuta las pruebas. El Java del proyecto captura los precios actuales.</p>
+<div class="table-wrap"><table><thead><tr><th>Producto</th><th class="num">USD/unidad</th><th class="num">Cantidad</th><th class="num">Subtotal USD</th></tr></thead><tbody>
+<tr><td>Combination Pliers</td><td class="num">14,15</td><td class="num"><label class="sr-only" for="qty-a">Cantidad de Combination Pliers</label><input id="qty-a" type="number" min="1" max="99" step="1" value="1" data-cents="1415"></td><td class="num" id="line-a">14,15</td></tr>
+<tr><td>Pliers</td><td class="num">12,01</td><td class="num"><label class="sr-only" for="qty-b">Cantidad de Pliers</label><input id="qty-b" type="number" min="1" max="99" step="1" value="2" data-cents="1201"></td><td class="num" id="line-b">24,02</td></tr>
+<tr><td>Bolt Cutters</td><td class="num">48,41</td><td class="num"><label class="sr-only" for="qty-c">Cantidad de Bolt Cutters</label><input id="qty-c" type="number" min="1" max="99" step="1" value="3" data-cents="4841"></td><td class="num" id="line-c">145,23</td></tr>
+</tbody></table></div>
+<p class="total" aria-live="polite">Total: USD <output id="cart-total">183,40</output></p>
+<p class="calc-status" id="calc-status" role="status">Con cantidades 1, 2 y 3, el total del ejemplo es USD 183,40.</p>
+<button class="button" type="button" id="apply-change">Aplicar cambio del reto</button><button class="button secondary" type="button" id="reset-cart">Reiniciar ejemplo</button>
+<p class="small" style="margin:16px 0 0">En este HTML se calcula con centavos enteros. En las pruebas Java se utiliza BigDecimal.</p>
+</div>
+<p>Al pasar la primera cantidad de 1 a 4, el total del ejemplo sube a <strong>USD 225,85</strong>. La diferencia es <strong>USD 42,45</strong>, correspondiente a tres unidades adicionales de USD 14,15.</p>
+<p>El escenario también compara cada línea: nombre, precio, cantidad y subtotal. Así una combinación de errores que casualmente conserve el total puede detectarse en el detalle.</p>
+</section>
+<section id="escenarios">
+<h2><span class="num">08</span>Qué comprueba cada escenario</h2>
+<div class="table-wrap"><table><thead><tr><th>Etiqueta</th><th>Acción y comprobación</th></tr></thead><tbody>
+<tr><td><code>@carrito</code></td><td>Registra un usuario, agrega tres productos con cantidades 1, 2 y 3 y compara líneas y total. Cambia la primera cantidad a 4 y vuelve a comprobar.</td></tr>
+<tr><td><code>@factura</code></td><td>Prepara su propio usuario y carrito. Repite el cálculo y el cambio, completa el checkout y compara número, totales del listado y detalle, y dirección enviada.</td></tr>
+<tr><td><code>@ordenamiento</code></td><td>Ordena por precio ascendente y reúne los precios de todas las páginas del catálogo presentado. Comprueba el orden numérico, incluidos los límites entre páginas.</td></tr>
+<tr><td><code>@categoria</code></td><td>Elige una subcategoría con resultados, recorre todas sus páginas y abre el detalle de cada producto para revisar su categoría real.</td></tr>
+<tr><td><code>@login_negativo</code></td><td>Intenta ingresar con un correo no registrado. Comprueba el mensaje exacto de credenciales inválidas y que permanezca el login sin acceso a la cuenta.</td></tr>
+</tbody></table></div>
+<p>Los escenarios son independientes. <code>@factura</code> puede ejecutarse solo porque prepara todo lo que necesita. El <code>Antecedentes</code> de Gherkin se ejecuta antes de cada escenario de esa característica.</p>
+<p>Los <code>Hooks</code> preparan un actor y su habilidad de navegador al comenzar cada escenario. Al terminar, cierran la actuación. Serenity administra el ciclo de vida del navegador según su configuración.</p>
+<p class="small">Cobertura delimitada: se recorren todas las páginas que presenta el catálogo con su rango de precios inicial. El ejercicio no analiza el PDF de la factura ni cubre todos los medios de pago o todas las promociones.</p>
+</section>
+<section id="datos">
+<h2><span class="num">09</span>Por qué importan los datos y las esperas</h2>
+<h3>Un usuario nuevo en cada compra</h3>
+<p>El correo tiene la forma <code>toolshop.&lt;UUID v4&gt;@example.com</code>. El UUID es un identificador aleatorio diseñado para hacer extremadamente improbable que se repita. La cuenta se guarda en la memoria del actor y el login usa esos mismos datos. El ejercicio no necesita una cuenta preexistente.</p>
+<h3>Un catálogo que puede cambiar</h3>
+<p>Los nombres, IDs y precios se leen durante la ejecución. Las compras seleccionan productos disponibles, sin promociones y con calificación CO₂ C, D o E. Esa condición evita el descuento ecológico automático y permite comprobar la fórmula de precio por cantidad acordada en el reto. Si no hay suficientes productos, la prueba falla con una explicación.</p>
+<h3>Esperar una condición observable</h3>
+<p>Tras cambiar de página, el código espera a recibir los productos de la nueva página. Tras modificar la cantidad, espera que cambie el total. Esto permite leer el resultado actualizado. Una espera tiene un tiempo máximo y falla si la condición nunca llega.</p>
+<p>El proyecto utiliza esperas explícitas y no emplea <code>Thread.sleep</code>. También espera el autocompletado postal y conserva la ciudad y el estado que valida el backend para facturar.</p>
+<h3>Localizadores estables</h3>
+<p>Un localizador describe cómo encontrar un elemento. Los Targets priorizan atributos <code>data-test</code>. Por ejemplo, <code>CartPage.LBL_TOTAL</code> identifica el total del carrito. Si ese atributo cambia en la aplicación, habrá que revisar el localizador.</p>
+</section>
+<section id="ejecutar">
+<h2><span class="num">10</span>Cómo ejecutar y leer un resultado</h2>
+<p>Necesitas JDK 21, Maven 3.9 o superior, Chrome e Internet. Abre una terminal en la carpeta que contiene <code>pom.xml</code>. Ese archivo describe las dependencias y la construcción del proyecto.</p>
+<pre><code># Comprobar la instalación
+java -version
+mvn -version
+
+# Solo las seis pruebas unitarias, sin navegador
+mvn test
+
+# Solo el escenario de factura, con Chrome visible
+mvn clean verify "-Dcucumber.filter.tags=@factura"
+
+# Los cinco escenarios web y las pruebas unitarias, sin ventana
+mvn clean verify "-Dheadless.mode=true"</code></pre>
+<p><strong>Headless</strong> significa que Chrome funciona sin mostrar su ventana. <code>clean</code> elimina los resultados anteriores del directorio de construcción, por eso conviene guardar cualquier reporte que quieras conservar antes de ejecutarlo.</p>
+<p>Maven ejecuta las pruebas unitarias, después las web y genera el reporte Serenity. Al terminar, abre <code>target/serenity-reports/index.html</code>. Usa el reporte de esa ejecución, sin mezclarlo con el de una ejecución anterior.</p>
+<div class="key"><p><strong>Última verificación registrada del código:</strong> 17 de noviembre de 2026, 19:20:05, hora de Colombia. Pasaron cinco escenarios web y seis pruebas unitarias, sin fallos ni omisiones. Estos documentos no constituyen una nueva ejecución de la suite.</p></div>
+<h3>Si una ejecución falla</h3>
+<ol><li>Identifica el primer paso que falló en Serenity.</li><li>Lee la diferencia entre resultado esperado y observado, o el mensaje de espera agotada.</li><li>Revisa la captura disponible y comprueba si la página terminó de cargar.</li><li>Clasifica la causa: posible defecto del sitio, localizador cambiado, datos no disponibles, ambiente o error del código de prueba.</li><li>Corrige una causa respaldada por evidencia y ejecuta el escenario afectado. Conserva el diagnóstico del fallo.</li></ol>
+<p>Un fallo no prueba por sí solo que la tienda tenga un defecto. Tampoco una ejecución exitosa demuestra que toda la aplicación esté libre de errores: demuestra que las comprobaciones cubiertas pasaron en ese ambiente y momento.</p>
+</section>
+<section id="aprender">
+<h2><span class="num">11</span>Una ruta para aprender el ejercicio</h2>
+<p>Avanza por comprensión. Cada sesión tiene una acción y una forma concreta de comprobar que puedes seguir.</p>
+<div class="table-wrap"><table><thead><tr><th>Sesión</th><th>Actividad</th><th>Lo que deberías poder explicar</th></tr></thead><tbody>
+<tr><td>1. La compra</td><td>Lee las cinco historias y calcula el carrito del ejemplo a mano.</td><td>Qué se espera de la tienda y qué sería un resultado incorrecto.</td></tr>
+<tr><td>2. Java básico</td><td>Revisa clases, objetos, métodos, parámetros, listas y el record <code>ProductDTO</code>.</td><td>Qué datos tiene un producto y cómo se calcula su subtotal.</td></tr>
+<tr><td>3. Gherkin y pasos</td><td>Lee <code>compra.feature</code> y encuentra la anotación <code>@Cuando</code> que recibe una cantidad.</td><td>Cómo llega el número 4 desde una frase hasta un método Java.</td></tr>
+<tr><td>4. Screenplay</td><td>Abre <code>ModificarCantidad</code>, <code>ChangeQuantity</code>, <code>CartTotal</code> y <code>CartPage</code>.</td><td>Qué responsabilidad tiene cada pieza y dónde ocurre la aserción.</td></tr>
+<tr><td>5. Una ejecución</td><td>Ejecuta primero <code>mvn test</code> y luego <code>@factura</code>. Abre Serenity.</td><td>La diferencia entre una prueba unitaria y una prueba web, y qué evidencia deja cada ejecución.</td></tr>
+<tr><td>6. Una modificación pequeña</td><td>En una rama de práctica, cambia en Gherkin la cantidad final de 4 a 5 y calcula a mano el nuevo total con los precios observados.</td><td>Por qué el resultado esperado cambia sin tener que fijar un nuevo importe en el escenario.</td></tr>
+<tr><td>7. Sustentación</td><td>Explica el flujo sin leer, muestra un recorrido de archivos y responde la autoevaluación.</td><td>El objetivo, la organización, el cálculo, la evidencia y los límites del ejercicio.</td></tr>
+</tbody></table></div>
+<p class="small">Para una modificación de práctica, guarda primero el estado del proyecto con Git. Revisa el cambio antes de integrarlo y no alteres el resultado esperado solo para obtener una ejecución exitosa.</p>
+</section>
+<section id="explicar">
+<h2><span class="num">12</span>Un guion para explicarlo en diez minutos</h2>
+<div class="table-wrap"><table><thead><tr><th>Tiempo sugerido</th><th>Qué contar y mostrar</th></tr></thead><tbody>
+<tr><td>0:00 a 1:00</td><td>“El reto comprueba que una compra conserve sus importes correctos al cambiar cantidades y emitir la factura”. Presenta también catálogo y login negativo.</td></tr>
+<tr><td>1:00 a 3:00</td><td>Presenta al actor y su habilidad. Explica Task, Interaction, Question y Target con el ejemplo de modificar una cantidad.</td></tr>
+<tr><td>3:00 a 5:00</td><td>Muestra la frase Gherkin, su StepDefinition, la Task y la Question. Señala dónde se compara el total.</td></tr>
+<tr><td>5:00 a 7:00</td><td>Explica captura de precios, BigDecimal y memoria del actor. Enseña un cálculo antes y después del cambio.</td></tr>
+<tr><td>7:00 a 9:00</td><td>Muestra la ejecución o su reporte. Indica fecha, ambiente y resultado. Explica la independencia de <code>@factura</code>, UUID y esperas.</td></tr>
+<tr><td>9:00 a 10:00</td><td>Delimita la cobertura: precios del catálogo presentado, promociones excluidas, servicio postal y PDF sin analizar. Muestra ramas, commits y PR si el evaluador lo solicita.</td></tr>
+</tbody></table></div>
+<p><strong>Antes de presentar:</strong> abre los archivos que usarás, verifica las herramientas y reserva el tiempo de ejecución. Si utilizas un reporte guardado, identifícalo como evidencia de una ejecución anterior.</p>
+<p>La presentación adjunta contiene notas del expositor. Puedes ensayar explicando cada diapositiva con tus propias palabras y usando esta guía para resolver dudas.</p>
+</section>
+<section id="preguntas">
+<h2><span class="num">13</span>Preguntas que pueden hacerte</h2>
+<details><summary>¿Por qué la factura prepara otro carrito?</summary><p>Porque cada escenario debe poder ejecutarse solo. La prueba de factura registra su cuenta, prepara el carrito y realiza sus propias verificaciones, reutilizando las mismas Tasks.</p></details>
+<details><summary>¿Por qué BigDecimal y no double?</summary><p>BigDecimal construido desde texto permite representar los importes decimales usados en el ejercicio y calcular sin los errores de representación binaria que pueden aparecer con double.</p></details>
+<details><summary>¿Cuál es la diferencia entre Task e Interaction?</summary><p>La Task coordina un objetivo del negocio y sus datos. La Interaction realiza una operación concreta de interfaz. ModificarCantidad recalcula la compra; ChangeQuantity escribe en el campo.</p></details>
+<details><summary>¿Una Question decide si pasó la prueba?</summary><p>La Question lee y devuelve un dato o estado. Una aserción lo compara con lo esperado. Por ejemplo, CartTotal devuelve un BigDecimal y el paso compara su valor con el total calculado.</p></details>
+<details><summary>¿Cómo sabes que el filtro funciona?</summary><p>Se revisa la categoría real de cada producto filtrado en su detalle, recorriendo todas las páginas de resultados. Marcar el filtro solo demostraría que el control pudo seleccionarse.</p></details>
+<details><summary>¿Por qué se excluyen promociones y productos ecológicos A o B?</summary><p>El reto acordado valida precio por cantidad. La selección evita reglas adicionales de descuentos que cambiarían esa fórmula. Se documenta esa condición; probar descuentos requeriría sus propias reglas y escenarios.</p></details>
+<details><summary>¿Qué ocurre si cambia un precio?</summary><p>El código captura el precio disponible al agregar el producto y calcula con él. Los importes del ejemplo de esta guía son didácticos. Un cambio durante la propia compra podría producir una discrepancia que debe revisarse.</p></details>
+<details><summary>¿Qué hace Tasks.instrumented?</summary><p>Construye una instancia de la Task compatible con la instrumentación de Serenity. Facilita que sus pasos se registren en el reporte. La acción del negocio sigue estando definida en performAs.</p></details>
+</section>
+<section id="evaluacion">
+<h2><span class="num">14</span>Comprueba lo que entendiste</h2>
+<p>Selecciona una respuesta por pregunta y revisa la explicación. Esta evaluación sirve para estudiar; no forma parte de las pruebas automáticas de Toolshop.</p>
+<noscript><p class="nojs">El contenido se puede leer sin JavaScript. Actívalo para usar la calculadora y corregir la autoevaluación.</p></noscript>
+<form id="quiz">
+<fieldset data-answer="b" data-explanation="CartTotal es una Question: lee el dato. La aserción compara ese dato con el total esperado."><legend>1. ¿Qué pieza lee el total de la web?</legend><label><input type="radio" name="q1" value="a">Una Task de registro</label><label><input type="radio" name="q1" value="b">Una Question</label><label><input type="radio" name="q1" value="c">El archivo pom.xml</label><p class="answer" hidden></p></fieldset>
+<fieldset data-answer="a" data-explanation="El esperado se calcula desde precios y cantidades capturados. Después se compara con el total observado."><legend>2. ¿De dónde sale el total esperado?</legend><label><input type="radio" name="q2" value="a">De multiplicar precios capturados por cantidades y sumar</label><label><input type="radio" name="q2" value="b">De copiar el total del carrito</label><label><input type="radio" name="q2" value="c">De escribir 225,85 como constante de la prueba</label><p class="answer" hidden></p></fieldset>
+<fieldset data-answer="c" data-explanation="UUID hace extremadamente improbable repetir el correo y permite registrar cuentas nuevas durante la ejecución."><legend>3. ¿Para qué se usa UUID en el correo?</legend><label><input type="radio" name="q3" value="a">Para calcular un descuento</label><label><input type="radio" name="q3" value="b">Para controlar el navegador</label><label><input type="radio" name="q3" value="c">Para generar un identificador de usuario con muy baja probabilidad de repetirse</label><p class="answer" hidden></p></fieldset>
+<fieldset data-answer="a" data-explanation="Una espera explícita revisa una condición hasta que se cumple o vence el tiempo máximo."><legend>4. ¿Qué espera la prueba al cambiar una cantidad?</legend><label><input type="radio" name="q4" value="a">Una actualización observable del total</label><label><input type="radio" name="q4" value="b">Siempre cinco segundos exactos</label><label><input type="radio" name="q4" value="c">Que se aprueben los otros escenarios</label><p class="answer" hidden></p></fieldset>
+<fieldset data-answer="b" data-explanation="La factura tiene su propia preparación y reutiliza Tasks. No depende de que se ejecute antes el escenario de carrito."><legend>5. ¿Cómo puede ejecutarse sola la prueba de factura?</legend><label><input type="radio" name="q5" value="a">Usando la cuenta del último cliente real</label><label><input type="radio" name="q5" value="b">Preparando su propio usuario y carrito</label><label><input type="radio" name="q5" value="c">Omitiendo las verificaciones del carrito</label><p class="answer" hidden></p></fieldset>
+<fieldset data-answer="c" data-explanation="El resultado respalda las comprobaciones realizadas en esa ejecución. La cobertura y el ambiente limitan lo que se puede concluir."><legend>6. ¿Qué demuestra una ejecución aprobada?</legend><label><input type="radio" name="q6" value="a">Que toda la tienda está libre de defectos</label><label><input type="radio" name="q6" value="b">Que el sitio nunca volverá a cambiar</label><label><input type="radio" name="q6" value="c">Que las comprobaciones cubiertas pasaron en ese momento y ambiente</label><p class="answer" hidden></p></fieldset>
+<button class="button" type="submit">Revisar mis respuestas</button>
+<p class="quiz-result" id="quiz-result" role="status" aria-live="polite"></p>
+</form>
+</section>
+<section id="fuentes">
+<h2><span class="num">15</span>Archivos para seguir aprendiendo</h2>
+<p>La explicación sigue el código refactorizado del repositorio. Estos enlaces abren GitHub si tienes conexión; la guía se puede leer sin ella.</p>
+<ul class="source-list">
+<li><a href="https://github.com/sallacas/reto-automatizacion-toolshop">Repositorio y README</a>: comandos, estructura y requisitos.</li>
+<li><a href="https://github.com/sallacas/reto-automatizacion-toolshop/blob/main/src/test/resources/features/compra.feature">compra.feature</a>: ejemplos del carrito y la factura.</li>
+<li><a href="https://github.com/sallacas/reto-automatizacion-toolshop/blob/main/src/test/java/com/co/toolshop/stepdefinitions/CartStepDefinitions.java">CartStepDefinitions</a>: conexión del texto con las Tasks y aserciones.</li>
+<li><a href="https://github.com/sallacas/reto-automatizacion-toolshop/blob/main/src/main/java/com/co/toolshop/tasks/ModificarCantidad.java">ModificarCantidad</a> y <a href="https://github.com/sallacas/reto-automatizacion-toolshop/blob/main/src/main/java/com/co/toolshop/interactions/ChangeQuantity.java">ChangeQuantity</a>: reparto del trabajo.</li>
+<li><a href="https://github.com/sallacas/reto-automatizacion-toolshop/blob/main/src/main/java/com/co/toolshop/questions/CartTotal.java">CartTotal</a> y <a href="https://github.com/sallacas/reto-automatizacion-toolshop/blob/main/src/main/java/com/co/toolshop/userinterfaces/CartPage.java">CartPage</a>: lectura y localización del total.</li>
+<li><a href="https://github.com/sallacas/reto-automatizacion-toolshop/blob/main/docs/sustentacion.md">Guía de sustentación</a> y <a href="https://github.com/sallacas/reto-automatizacion-toolshop/blob/main/docs/validacion.md">registro de validación</a>.</li>
+</ul>
+<p class="footer">Documento educativo del reto Toolshop. Los ejemplos de importes no sustituyen los precios capturados en cada ejecución. Preparado a partir del código y la validación registrada el 17 de noviembre de 2026.</p>
+</section>
+</main></div>
+<script>
+(() => {
+  'use strict';
+  const ids = ['a','b','c'];
+  const quantities = ids.map(id => document.getElementById('qty-' + id));
+  const currency = cents => (cents / 100).toLocaleString('es-CO', {minimumFractionDigits:2, maximumFractionDigits:2});
+  function updateCart() {
+    let total = 0, valid = true;
+    quantities.forEach((input, index) => {
+      const value = Number(input.value);
+      const correct = input.value !== '' && Number.isInteger(value) && value >= 1 && value <= 99;
+      input.setAttribute('aria-invalid', String(!correct));
+      valid = valid && correct;
+      const cents = correct ? value * Number(input.dataset.cents) : 0;
+      document.getElementById('line-' + ids[index]).textContent = correct ? currency(cents) : '—';
+      total += cents;
+    });
+    document.getElementById('cart-total').textContent = valid ? currency(total) : '—';
+    document.getElementById('calc-status').textContent = valid
+      ? 'Total calculado en este ejemplo: USD ' + currency(total) + '. Cada cantidad multiplica su precio unitario.'
+      : 'Introduce cantidades enteras entre 1 y 99 en los tres productos.';
+  }
+  quantities.forEach(input => input.addEventListener('input', updateCart));
+  document.getElementById('apply-change').addEventListener('click', () => { quantities[0].value='4'; updateCart(); });
+  document.getElementById('reset-cart').addEventListener('click', () => { quantities.forEach((input, i) => {input.value=String(i+1);}); updateCart(); });
+  document.getElementById('print-guide').addEventListener('click', () => window.print());
+  document.getElementById('quiz').addEventListener('submit', event => {
+    event.preventDefault();
+    const fields = Array.from(event.currentTarget.querySelectorAll('fieldset'));
+    const missing = fields.find(field => !field.querySelector('input:checked'));
+    if (missing) {
+      document.getElementById('quiz-result').textContent = 'Responde las seis preguntas antes de revisar.';
+      missing.querySelector('input').focus();
+      return;
+    }
+    let score = 0;
+    fields.forEach(field => {
+      const correct = field.querySelector('input:checked').value === field.dataset.answer;
+      if (correct) score++;
+      const answer = field.querySelector('.answer');
+      answer.hidden = false;
+      answer.textContent = (correct ? 'Respuesta correcta. ' : 'Revisa este concepto. ') + field.dataset.explanation;
+    });
+    document.getElementById('quiz-result').textContent = score + ' de 6 respuestas correctas. Revisa las explicaciones y vuelve a contarlo con tus palabras.';
+  });
+  updateCart();
+})();
+</script>
+</body>
+</html>
