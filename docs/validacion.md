@@ -36,3 +36,15 @@ El total calculado coincidió con el carrito, el listado de facturas y el detall
 - Reporte generado en `target/serenity-reports/index.html`, con datos de cálculo y captura del detalle de factura.
 
 El reporte completo y los archivos técnicos permanecen fuera de Git. Cada evaluador puede regenerarlos mediante el comando indicado. El sitio público es compartido: una ejecución posterior usa otros usuarios UUID, otra factura y el catálogo disponible en ese momento.
+
+## Validación del ajuste de convenciones Screenplay
+
+El 17 de noviembre de 2026 se verificó la estructura basada en `sallacas/prueba-tecnica-web`, con Tasks y fábricas en español. Las capas reutilizables están en `src/main/java/com/co/toolshop`; los pasos, Hooks, ejecutor y pruebas unitarias están en `src/test/java/com/co/toolshop`.
+
+```powershell
+mvn -B -ntp clean verify "-Dheadless.mode=true"
+```
+
+Maven terminó con `BUILD SUCCESS` a las 19:20:05, hora de Colombia. Se ejecutaron las seis pruebas unitarias y los cinco escenarios web: cero fallos, errores u omisiones. La duración total fue de 1 minuto y 14 segundos. El reporte Serenity se regeneró con los resultados de esta ejecución.
+
+También se comprobó la compilación final con `mvn -B -ntp test-compile "-DskipTests"`. La adaptación mantiene usuarios UUID, cálculos con BigDecimal, memoria del actor y escenarios independientes. Se verificó el flujo completo de compra y la dirección e importe de la factura después del cambio de estructura y composición.
