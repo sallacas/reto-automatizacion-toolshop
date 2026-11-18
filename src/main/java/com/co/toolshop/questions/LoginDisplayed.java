@@ -1,14 +1,11 @@
 package com.co.toolshop.questions;
 
-import com.co.toolshop.models.*;
-import com.co.toolshop.userinterfaces.*;
-import com.co.toolshop.utils.*;
-import java.math.BigDecimal;
-import java.util.List;
+import com.co.toolshop.userinterfaces.LoginPage;
+import com.co.toolshop.userinterfaces.NavigationPage;
+import com.co.toolshop.utils.Waits;
 import net.serenitybdd.core.steps.Instrumented;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
-import net.serenitybdd.screenplay.targets.Target;
 
 public class LoginDisplayed implements Question<Boolean> {
     public static LoginDisplayed withoutSession() {

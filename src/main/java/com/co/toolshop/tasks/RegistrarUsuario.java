@@ -8,6 +8,7 @@ import com.co.toolshop.userinterfaces.*;
 import com.co.toolshop.utils.Waits;
 import net.serenitybdd.annotations.Step;
 import net.serenitybdd.screenplay.*;
+import org.openqa.selenium.Keys;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 public class RegistrarUsuario implements Task {
@@ -18,8 +19,9 @@ public class RegistrarUsuario implements Task {
     public <T extends Actor> void performAs(T actor) {
         actor.remember(ActorMemory.USER, usuario);
         actor.attemptsTo(AbrirTienda.en("/auth/register"),
-                Write.theValue(usuario.name()).into(RegisterPage.TXT_FIRST_NAME), Write.theValue(usuario.lastName()).into(RegisterPage.TXT_LAST_NAME),
-                Write.theValue(usuario.dateOfBirth()).into(RegisterPage.TXT_DATE_OF_BIRTH));
+                Enter.theValue(usuario.name()).into(RegisterPage.TXT_FIRST_NAME).thenHit(Keys.TAB),
+                Enter.theValue(usuario.lastName()).into(RegisterPage.TXT_LAST_NAME).thenHit(Keys.TAB),
+                Enter.theValue(usuario.dateOfBirth()).into(RegisterPage.TXT_DATE_OF_BIRTH).thenHit(Keys.TAB));
         actor.attemptsTo(SelectFromOptions.byValue(usuario.country()).from(RegisterPage.SELECT_COUNTRY));
         actor.attemptsTo(Write.theValue(usuario.postalCode()).into(RegisterPage.TXT_POSTAL_CODE), Write.theValue(usuario.houseNumber()).into(RegisterPage.TXT_HOUSE_NUMBER),
                 Write.theValue(usuario.phone()).into(RegisterPage.TXT_PHONE), Write.theValue(usuario.email()).into(RegisterPage.TXT_EMAIL),

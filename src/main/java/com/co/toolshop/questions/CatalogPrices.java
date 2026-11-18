@@ -1,7 +1,8 @@
 package com.co.toolshop.questions;
 
-import com.co.toolshop.userinterfaces.*;
-import com.co.toolshop.utils.*;
+import com.co.toolshop.userinterfaces.CatalogPage;
+import com.co.toolshop.utils.Waits;
+import com.co.toolshop.utils.Amounts;
 import java.math.BigDecimal;
 import java.util.List;
 import net.serenitybdd.screenplay.*;

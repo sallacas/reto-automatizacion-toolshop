@@ -10,6 +10,7 @@ import com.co.toolshop.userinterfaces.*;
 import com.co.toolshop.utils.Waits;
 import net.serenitybdd.annotations.Step;
 import net.serenitybdd.screenplay.*;
+import org.openqa.selenium.Keys;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 public class CompletarCompra implements Task {
@@ -37,9 +38,10 @@ public class CompletarCompra implements Task {
                 Waits.visible(actor, CheckoutPage.TXT_STATE).getAttribute("value")));
         actor.attemptsTo(Click.on(CheckoutPage.BTN_CONTINUE_TO_PAYMENT).afterWaitingUntilEnabled());
         actor.attemptsTo(SelectFromOptions.byValue("bank-transfer").from(CheckoutPage.SELECT_PAYMENT_METHOD));
-        actor.attemptsTo(Write.theValue("Banco de Pruebas").into(CheckoutPage.TXT_BANK_NAME),
-                Write.theValue(usuario.name() + " " + usuario.lastName()).into(CheckoutPage.TXT_ACCOUNT_HOLDER),
-                Write.theValue(usuario.phone()).into(CheckoutPage.TXT_ACCOUNT_NUMBER), Click.on(CheckoutPage.BTN_FINISH).afterWaitingUntilEnabled());
+        actor.attemptsTo(Enter.theValue("Banco de Pruebas").into(CheckoutPage.TXT_BANK_NAME).thenHit(Keys.TAB),
+                Enter.theValue(usuario.name() + " " + usuario.lastName()).into(CheckoutPage.TXT_ACCOUNT_HOLDER).thenHit(Keys.TAB),
+                Enter.theValue(usuario.phone()).into(CheckoutPage.TXT_ACCOUNT_NUMBER).thenHit(Keys.TAB),
+                Click.on(CheckoutPage.BTN_FINISH).afterWaitingUntilEnabled());
         Waits.visible(actor, CheckoutPage.LBL_PAYMENT_SUCCESS);
         actor.attemptsTo(Click.on(CheckoutPage.BTN_FINISH).afterWaitingUntilEnabled());
         actor.remember(ActorMemory.INVOICE_NUMBER, actor.asksFor(ConfirmedInvoiceNumber.fromPurchase()));

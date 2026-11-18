@@ -1,6 +1,6 @@
 package com.co.toolshop.questions;
 
-import com.co.toolshop.userinterfaces.*;
+import com.co.toolshop.userinterfaces.CheckoutPage;
 import com.co.toolshop.utils.Waits;
 import java.util.regex.Pattern;
 import net.serenitybdd.screenplay.*;

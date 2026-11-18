@@ -1,14 +1,13 @@
 package com.co.toolshop.questions;
 
-import com.co.toolshop.models.*;
-import com.co.toolshop.userinterfaces.*;
-import com.co.toolshop.utils.*;
-import java.math.BigDecimal;
+import com.co.toolshop.models.CartLineDTO;
+import com.co.toolshop.userinterfaces.CartPage;
+import com.co.toolshop.utils.Waits;
+import com.co.toolshop.utils.Amounts;
 import java.util.List;
 import net.serenitybdd.core.steps.Instrumented;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
-import net.serenitybdd.screenplay.targets.Target;
 
 public class CartLines implements Question<List<CartLineDTO>> {
     public static CartLines fromCart() {
