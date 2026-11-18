@@ -48,3 +48,18 @@ mvn -B -ntp clean verify "-Dheadless.mode=true"
 Maven terminó con `BUILD SUCCESS` a las 19:20:05, hora de Colombia. Se ejecutaron las seis pruebas unitarias y los cinco escenarios web: cero fallos, errores u omisiones. La duración total fue de 1 minuto y 14 segundos. El reporte Serenity se regeneró con los resultados de esta ejecución.
 
 También se comprobó la compilación final con `mvn -B -ntp test-compile "-DskipTests"`. La adaptación mantiene usuarios UUID, cálculos con BigDecimal, memoria del actor y escenarios independientes. Se verificó el flujo completo de compra y la dirección e importe de la factura después del cambio de estructura y composición.
+
+## Revisión de los materiales de explicación
+
+La actualización documental incorpora `guia-principiantes.html`, una presentación PowerPoint de quince diapositivas y su guion editable. El README y la guía de sustentación enlazan los materiales y describen cómo utilizarlos.
+
+La revisión incluyó:
+
+- Apertura del HTML en Chrome, navegación del índice y comprobación de ausencia de desplazamiento horizontal general en la ventana utilizada.
+- Calculadora con USD 183,40 al inicio, USD 225,85 después del cambio de cantidad y validación de una cantidad fuera del rango permitido.
+- Autoevaluación con preguntas sin responder, seis respuestas correctas y una respuesta equivocada, incluyendo las explicaciones correspondientes.
+- Comprobación de IDs únicos, anclas válidas y ausencia de scripts, estilos o imágenes externos requeridos para leer el HTML.
+- Revisión visual de todas las diapositivas y comprobación de quince notas del expositor con fuentes, cuatro tablas editables y formato 16:9 en el PowerPoint exportado.
+- Verificación de los enlaces locales y las rutas del código citadas por los materiales.
+
+No se modificaron archivos Java, escenarios Gherkin ni configuración Maven en esta actualización. No se ejecutó nuevamente la suite del sitio público; los resultados funcionales citados siguen correspondiendo a las ejecuciones registradas anteriormente.

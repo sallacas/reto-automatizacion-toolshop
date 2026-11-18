@@ -2,6 +2,29 @@
 
 El proyecto demuestra que los importes de una compra se mantienen coherentes desde la captura del precio hasta la consulta posterior de la factura. Las comprobaciones de catálogo y acceso cubren los otros comportamientos solicitados. La suite utiliza Selenium a través de Serenity y no crea datos mediante API.
 
+## Material de apoyo y preparación
+
+- Para empezar desde cero, abrir [la guía HTML](guia-principiantes.html): explica los conceptos, permite practicar con un carrito didáctico y ofrece una autoevaluación de seis preguntas.
+- Para exponer, utilizar [la presentación de quince diapositivas](presentacion-toolshop.pptx). Sus notas incluyen el desarrollo de cada explicación y las fuentes del código.
+- Para adaptar el discurso, editar [el guion de las diapositivas](presentacion-toolshop.md) y mantenerlo coherente con el PowerPoint y el código.
+
+El objetivo de la exposición es explicar qué se comprueba, de dónde sale el resultado esperado, cómo se reparten las responsabilidades y qué evidencia respalda el resultado. Las Tasks y sus fábricas se mantienen en español; las carpetas y las pantallas siguen las convenciones de la referencia.
+
+Antes de la demostración, comprobar JDK 21, Maven, Chrome y conectividad. Abrir la terminal en la carpeta de `pom.xml` y dejar preparados los archivos del recorrido. Guardar el reporte si se quiere conservar: `mvn clean` elimina los resultados anteriores de `target`.
+
+## Orden de exposición
+
+| Tiempo sugerido | Diapositivas | Contenido |
+| --- | --- | --- |
+| 0:00 a 1:00 | 1 a 3 | Presentar la compra y la diferencia entre resultado esperado y observado. Resumir los cinco escenarios. |
+| 1:00 a 3:00 | 4 a 6 | Ubicar las herramientas y explicar Actor, Ability, Task, Interaction, Question, Target y memoria. |
+| 3:00 a 5:00 | 7 y 8 | Seguir una frase Gherkin hasta Java y explicar la fábrica de una Task y su método `performAs`. |
+| 5:00 a 7:00 | 9 a 11 | Calcular el carrito, explicar BigDecimal, UUID, esperas y estructura del repositorio. |
+| 7:00 a 9:00 | 12 y 13 | Mostrar evidencia registrada o una ejecución, indicando siempre su fecha y ambiente. |
+| 9:00 a 10:00 | 14 y 15 | Explicar cómo practicar el ejercicio y delimitar su cobertura. |
+
+Los tiempos son una propuesta de ensayo. Una ejecución completa puede requerir más tiempo según el ambiente; conviene reservarlo o utilizar un reporte guardado e identificarlo como evidencia anterior.
+
 ## Explicación del diseño
 
 Comenzar por una característica Gherkin, seguir su paso Java y mostrar la Task que ejecuta el objetivo del cliente. Después abrir una Interaction, una Question y los Targets de su pantalla. Esto permite explicar la separación sin recorrer todas las clases.
@@ -21,6 +44,17 @@ La estructura sigue el repositorio de referencia `sallacas/prueba-tecnica-web`: 
 Las carpetas se llaman `tasks`, `interactions`, `questions`, `userinterfaces`, `models` y `utils`. Las Tasks conservan clases y fábricas en español: `RegistrarUsuario.con(usuario)`, `IniciarSesion.enLaTiendaCon(usuario)`, `AgregarProductos.alCarritoConCantidades(1, 2, 3)` y `ConsultarFactura.porNumero(numero)`. Así las llamadas expresan el objetivo y los datos de entrada.
 
 Mostrar `ModificarCantidad.delPrimerProductoA(4)`: la Task prepara el nuevo `ProductDTO` y recalcula el total en la memoria del actor; `ChangeQuantity.ofProduct(nombre).to(4)` realiza la escritura del control. Mostrar luego `CartTotal.value()`, una clase que implementa `Question<BigDecimal>`.
+
+El recorrido concreto de archivos es:
+
+1. `src/test/resources/features/compra.feature`: localizar la frase que cambia una cantidad.
+2. `src/test/java/com/co/toolshop/stepdefinitions/CartStepDefinitions.java`: mostrar cómo `{int}` recibe el valor y el paso delega en la Task.
+3. `src/main/java/com/co/toolshop/tasks/ModificarCantidad.java`: explicar el nuevo DTO, la memoria y el cálculo esperado.
+4. `src/main/java/com/co/toolshop/interactions/ChangeQuantity.java`: mostrar la operación sobre el control.
+5. `src/main/java/com/co/toolshop/questions/CartTotal.java` y `userinterfaces/CartPage.java`: mostrar la lectura y su Target.
+6. Volver a `CartStepDefinitions.verificarCarrito`: señalar las aserciones de líneas y total.
+
+Una Question devuelve el dato observado. La aserción compara ese dato con lo esperado. La Task contiene el objetivo y coordina las acciones. `Tasks.instrumented` construye una instancia compatible con la instrumentación de Serenity, mientras que `performAs` define su ejecución.
 
 Los localizadores están en pantallas con sufijo `Page` y prefijos por tipo de control, por ejemplo `LoginPage.TXT_EMAIL`, `LoginPage.BTN_LOGIN` y `CartPage.LBL_TOTAL`. El código combina acciones nativas de Serenity con Interactions específicas para las particularidades de Toolshop. Los DTOs siguen siendo inmutables.
 
@@ -57,3 +91,20 @@ Los localizadores están en pantallas con sufijo `Page` y prefijos por tipo de c
 La aplicación pública se comparte con otras personas y puede reiniciar su catálogo. También depende de un servicio de autocompletado de direcciones. Si una ejecución falla, revisar primero la captura, el paso y el mensaje de Serenity. Distinguir una discrepancia funcional de un cambio de localizador o una indisponibilidad del ambiente, y documentar lo observado.
 
 La suite no analiza el PDF de factura, no cubre todos los métodos de pago y no valida promociones o descuentos. No incluye CI. Estas decisiones mantienen el alcance acordado y permiten explicar cada validación implementada.
+
+## Preguntas para ensayar
+
+| Pregunta | Respuesta que conviene respaldar con código |
+| --- | --- |
+| ¿De dónde sale el total esperado? | De multiplicar precios capturados por cantidades y sumar en `Amounts`, usando BigDecimal. El total de la web es el observado. |
+| ¿Por qué `@factura` repite preparación? | Para ejecutarse por sí solo, con su usuario y carrito, reutilizando las mismas Tasks. |
+| ¿Por qué UUID? | Para generar correos con una probabilidad de repetición extremadamente baja, sin depender de cuentas existentes. |
+| ¿Qué comprueba el filtro? | La categoría real del detalle de todos los productos resultantes, incluyendo las páginas presentadas. |
+| ¿Qué diferencia hay entre Task e Interaction? | `ModificarCantidad` coordina datos y cálculo; `ChangeQuantity` escribe en el campo. |
+| ¿Qué significa que las pruebas pasaron? | Que las comprobaciones cubiertas coincidieron en esa ejecución y ambiente. La evidencia no demuestra ausencia de todos los defectos posibles. |
+
+## Cómo estudiar sin memorizar
+
+Empezar por la compra manual y hacer la suma a mano. Después estudiar clases, objetos, métodos, parámetros, listas y records de Java. Seguir un solo paso entre archivos antes de recorrer toda la suite. Ejecutar primero las pruebas unitarias y después un escenario web. Por último, modificar una cantidad en una rama de práctica, explicar el efecto esperado y comprobarlo en el reporte.
+
+La última ejecución completa registrada del código refactorizado corresponde al 17 de noviembre de 2026 a las 19:20:05, hora de Colombia. Los materiales de aprendizaje emplean esa evidencia e identifican los cálculos ilustrativos. La actualización documental no representa una ejecución nueva de las pruebas web.
