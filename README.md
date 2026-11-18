@@ -72,25 +72,45 @@ Usar `clean` antes de una ejecución que se vaya a entregar: así el reporte no 
 ## Estructura y Screenplay
 
 ```text
-src/test/java/co/reto/toolshop/
-  ejecutores/       Ejecutor Cucumber integrado con Serenity
-  pasos/            Hooks y correspondencia entre Gherkin y Screenplay
-  tareas/           Objetivos del cliente: registrar, comprar, recorrer catálogo
-  interacciones/    Operaciones sobre controles: escribir, pulsar, cambiar cantidad
-  preguntas/        Lectura de sesión, carrito, precios y factura
-  ui/               Targets y localizadores centralizados por pantalla
-  modelos/          Datos inmutables y claves de memoria del actor
-  datos/            Generador de usuarios sintéticos con UUID v4
-  utilidades/       Conversión monetaria y esperas explícitas
-  unitarias/        Casos de precisión decimal, formato, orden y unicidad
+src/main/java/com/co/toolshop/
+  tasks/            Objetivos del cliente con clases y fábricas en español
+  interactions/     Operaciones específicas sobre controles
+  questions/        Clases que implementan Question<T> y leen el estado
+  userinterfaces/   Pantallas Page y Targets TXT_, BTN_, LBL_, SELECT_ y LST_
+  models/           DTOs inmutables de usuario, producto, carrito y dirección
+  utils/            Memoria del actor, importes y esperas explícitas
+    data/           Generador de usuarios sintéticos con UUID v4
+src/test/java/com/co/toolshop/
+  runners/          ToolshopRunnerIT integrado con Serenity y Cucumber
+  stepdefinitions/  Pasos Gherkin y Hooks de preparación y cierre
+  unit/             Pruebas de cálculos, formato, orden y unicidad
 src/test/resources/
-  features/         Escenarios Gherkin en español; nombre requerido por Serenity
+  features/         Escenarios Gherkin en español
   serenity.conf     Configuración de Chrome y reportes
 docs/
   sustentacion.md   Guía de decisiones y demostración
+  validacion.md     Resultados de ejecución
 ```
 
-Los pasos delegan la navegación y acciones en Tasks/Interactions y consultan Questions para realizar las aserciones. No se usa Page Object como capa de negocio. La habilidad `BrowseTheWeb` pertenece al actor.
+La organización sigue las convenciones de [prueba-tecnica-web](https://github.com/sallacas/prueba-tecnica-web), manteniendo las Tasks y sus fábricas en español. Los pasos delegan en Tasks/Interactions y consultan clases `Question<T>` para realizar las aserciones. La habilidad `BrowseTheWeb` pertenece al actor.
+
+Ejemplos de composición:
+
+```java
+actor.attemptsTo(RegistrarUsuario.con(UserGenerator.newUser()));
+actor.attemptsTo(IniciarSesion.enLaTiendaCon(actor.recall(ActorMemory.USER)));
+actor.attemptsTo(AgregarProductos.alCarritoConCantidades(1, 2, 3));
+actor.attemptsTo(ModificarCantidad.delPrimerProductoA(4));
+actor.attemptsTo(CompletarCompra.porTransferenciaBancaria());
+actor.attemptsTo(ConsultarFactura.porNumero(actor.recall(ActorMemory.INVOICE_NUMBER)));
+BigDecimal total = actor.asksFor(CartTotal.value());
+```
+
+Las Tasks componen acciones nativas como `Open.url`, `Click.on`, `Enter.theValue`, `SelectFromOptions` y `WaitUntil`. Las Interactions propias cubren la paginación y la escritura que necesita Toolshop: `Write.theValue(...).into(...)` reemplaza la selección sin vaciar primero el campo y evita incluir contraseñas en la descripción del reporte; `ChangeQuantity.ofProduct(...).to(...)` solo opera el control. La Task `ModificarCantidad` actualiza los datos recordados y recalcula el importe.
+
+Las pantallas se llaman `LoginPage`, `RegisterPage`, `CatalogPage`, `CartPage`, `CheckoutPage`, `InvoicesPage` y `NavigationPage`. Por ejemplo, `LoginPage.TXT_EMAIL` y `LoginPage.BTN_LOGIN`. Los DTOs mantienen la inmutabilidad de Java 21 mediante records y la lógica monetaria usa `BigDecimal`.
+
+Las dependencias utilizadas por las capas reutilizables tienen alcance de compilación en Maven; Cucumber, el ejecutor y las aserciones de prueba permanecen en el alcance de pruebas.
 
 ## Datos y cálculos
 
@@ -111,7 +131,7 @@ Si el sitio público está indisponible, consultar las instrucciones Docker del 
 
 ## Versionamiento y entrega
 
-El commit inicial se creó en `preparacion/base`; `main` apunta a esa base. Todo el desarrollo se realiza en `funcionalidad/reto-automatizacion`, con commits descriptivos en español. La publicación en GitHub se realiza al finalizar la verificación. El PR hacia `main` se integra mediante un commit de merge para conservar el historial de desarrollo.
+El commit inicial se creó en `preparacion/base`. La implementación original se desarrolló en `funcionalidad/reto-automatizacion` y se integró mediante PR. El ajuste de convenciones se desarrolla en `refactorizacion/convenciones-screenplay`. Los commits, ramas y descripciones se mantienen en español; cada cambio se publica al terminar las verificaciones y se integra mediante commit de merge para conservar el historial.
 
 No se incluye GitHub Actions. La [guía de sustentación](docs/sustentacion.md) explica el diseño y la demostración. Los reportes, credenciales y archivos temporales están excluidos por `.gitignore`.
 

@@ -12,7 +12,17 @@ Comenzar por una característica Gherkin, seguir su paso Java y mostrar la Task 
 - Las Questions leen el estado del sistema. Las aserciones comparan ese estado con los datos esperados.
 - Los Targets concentran los localizadores para que un cambio de interfaz tenga un lugar de mantenimiento claro.
 
-Mostrar `Memoria`: los datos se comparten entre pasos con `remember` y `recall`, dentro de un único escenario. Los modelos son inmutables; al cambiar una cantidad se genera una nueva versión del producto. No hay variables estáticas mutables con información de usuarios o compras.
+Mostrar `ActorMemory`: los datos se comparten entre pasos con `remember` y `recall`, dentro de un único escenario. Los modelos son inmutables; al cambiar una cantidad se genera una nueva versión del producto. No hay variables estáticas mutables con información de usuarios o compras.
+
+## Convenciones de estructura y llamadas
+
+La estructura sigue el repositorio de referencia `sallacas/prueba-tecnica-web`: capas reutilizables en `src/main/java/com/co/toolshop` y ejecutor, definiciones de pasos, Hooks y pruebas unitarias en `src/test/java/com/co/toolshop`.
+
+Las carpetas se llaman `tasks`, `interactions`, `questions`, `userinterfaces`, `models` y `utils`. Las Tasks conservan clases y fábricas en español: `RegistrarUsuario.con(usuario)`, `IniciarSesion.enLaTiendaCon(usuario)`, `AgregarProductos.alCarritoConCantidades(1, 2, 3)` y `ConsultarFactura.porNumero(numero)`. Así las llamadas expresan el objetivo y los datos de entrada.
+
+Mostrar `ModificarCantidad.delPrimerProductoA(4)`: la Task prepara el nuevo `ProductDTO` y recalcula el total en la memoria del actor; `ChangeQuantity.ofProduct(nombre).to(4)` realiza la escritura del control. Mostrar luego `CartTotal.value()`, una clase que implementa `Question<BigDecimal>`.
+
+Los localizadores están en pantallas con sufijo `Page` y prefijos por tipo de control, por ejemplo `LoginPage.TXT_EMAIL`, `LoginPage.BTN_LOGIN` y `CartPage.LBL_TOTAL`. El código combina acciones nativas de Serenity con Interactions específicas para las particularidades de Toolshop. Los DTOs siguen siendo inmutables.
 
 ## Decisiones que conviene defender
 
